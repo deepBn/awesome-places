@@ -8,24 +8,35 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, TextInput, View, Button} from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import {StyleSheet, TextInput, View, Button, Text} from 'react-native';
 
 type Props = {};
 export default class App extends Component<Props> {
-  state = {placeName: ''};
+  state = {
+    placeName: '',
+    places: []
+  };
 
   placeNameChangedHandler = placeName => {
     this.setState({placeName});
   };
 
+  placeSubmitHandler = () => {
+    if (this.state.placeName.trim() === "") {
+      return;
+    }
+
+    this.setState(prevState => {
+      return {
+        places: prevState.places.concat(prevState.placeName)
+      }
+    })
+  };
+
   render() {
+    const placesOutput = this.state.places.map(
+      (place, index) => <Text key={index}>{place}</Text>
+    );
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
@@ -37,9 +48,10 @@ export default class App extends Component<Props> {
             />
           </View>
           <View style={styles.placeButton}>
-            <Button title="Add" onPress={() => 'Hello'}/>
+            <Button title="Add" onPress={this.placeSubmitHandler}/>
           </View>
         </View>
+        <View>{placesOutput}</View>
       </View>
     );
   }
