@@ -3,8 +3,13 @@ import {View, StyleSheet} from "react-native";
 import ListItem from "../ListItem/ListItem";
 
 const placeList = props => {
-  const placesOutput = props.places.map(
-    (place, index) => <ListItem key={index} placeName={place}/>
+  const placesOutput = props.places.map((place, index) => (
+      <ListItem
+        key={index}
+        placeName={place}
+        onItemPressed={() => alert('Item pressed, ID - ' + index)}
+      />
+    )
   );
 
   return (
