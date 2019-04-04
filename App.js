@@ -12,7 +12,7 @@ import {StyleSheet, View} from 'react-native';
 
 import PlaceInput from './src/components/PlaceInput/PlaceInput';
 import PlaceList from './src/components/PlaceList/PlaceList';
-import placeImage from './src/assets/beautiful-image.jpg';
+//import placeImage from './src/assets/beautiful-image.jpg';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -26,7 +26,7 @@ export default class App extends Component<Props> {
         places: prevState.places.concat({
           id: (Math.random() + Math.random()).toString(),
           name: placeName,
-          image: placeImage
+          image: {uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}
         })
       }
     })
