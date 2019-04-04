@@ -22,15 +22,15 @@ export default class App extends Component<Props> {
   placeAddedHandler = placeName => {
     this.setState(prevState => {
       return {
-        places: prevState.places.concat(placeName)
+        places: prevState.places.concat({id: (Math.random() + Math.random()).toString(), place: placeName})
       }
     })
   };
 
-  placeDeletedHandler = index => {
+  placeDeletedHandler = id => {
     this.setState(prevState => {
       return {
-        places: prevState.places.filter((place, i) => i !== index)
+        places: prevState.places.filter(place => place.id !== id)
       }
     })
   };
