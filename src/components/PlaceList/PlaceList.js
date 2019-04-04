@@ -10,7 +10,8 @@ const placeList = props => {
       keyExtractor={item => item.id}
       renderItem={({item}) => (
         <ListItem
-          placeName={item.place}
+          placeName={item.name}
+          placeImage={item.image}
           onItemPressed={() => props.onItemDeleted(item.id)}
         />
       )}

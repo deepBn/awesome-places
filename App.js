@@ -12,6 +12,7 @@ import {StyleSheet, View} from 'react-native';
 
 import PlaceInput from './src/components/PlaceInput/PlaceInput';
 import PlaceList from './src/components/PlaceList/PlaceList';
+import placeImage from './src/assets/beautiful-image.jpg';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -22,7 +23,11 @@ export default class App extends Component<Props> {
   placeAddedHandler = placeName => {
     this.setState(prevState => {
       return {
-        places: prevState.places.concat({id: (Math.random() + Math.random()).toString(), place: placeName})
+        places: prevState.places.concat({
+          id: (Math.random() + Math.random()).toString(),
+          name: placeName,
+          image: placeImage
+        })
       }
     })
   };
