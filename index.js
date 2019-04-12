@@ -10,10 +10,8 @@ import {Provider} from 'react-redux';
 import {name as appName} from './app.json';
 import configureStore from './src/store/configureStore';
 
-const store = configureStore();
-
 const RNRedux = () => (
-  <Provider store={store}>
+  <Provider store={configureStore}>
     <App/>
   </Provider>
 );

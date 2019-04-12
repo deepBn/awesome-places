@@ -1,13 +1,13 @@
-import {createStore, combineReducers} from 'redux';
+import {createStore, compose, applyMiddleware} from 'redux';
 
-import placesReducer from './reducers/places';
+import reducers from './reducers';
 
-const rootReducer = combineReducers({
-  places: placesReducer
-});
+const middleWares = [];
+let composeEnhancers = compose;
+if (__DEV__) {
+  composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+}
 
-const configureStore = () => {
-  return createStore(rootReducer);
-};
+const store = createStore(reducers, composeEnhancers(applyMiddleware(...middleWares)));
 
-export default configureStore;
+export default store;
