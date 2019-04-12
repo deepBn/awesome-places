@@ -9,7 +9,7 @@
   "dependencies": {
     "react": "16.6.3",
     "react-native": "0.58.5",
-    "react-redux": "^7.0.1",
+    "react-redux": "6",
     "redux": "^4.0.1"
   },
   "devDependencies": {
