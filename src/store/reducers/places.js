@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
     case DELETE_PLACE:
       return {
         ...state,
-        places: state.places.filter(place => place.id !== state.selectedPlace.id)
+        places: state.places.filter(place => place.id !== action.placeId)
       };
     default:
       return state;

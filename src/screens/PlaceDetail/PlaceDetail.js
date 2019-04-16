@@ -1,27 +1,36 @@
-import React from 'react';
-import {View, Image, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {Component} from 'react';
+import {View, Image, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {connect} from 'react-redux';
 
-const placeDetailScreen = props => {
-  const {selectedPlace, onItemDeleted, onModalClosed} = props;
+import {deletePlace} from '../../store/actions';
 
-  return (
-    <View style={styles.modalContainer}>
-      <View>
-        <Image source={selectedPlace.image} style={styles.placeImage}/>
-        <Text style={styles.placeName}>{selectedPlace.name}</Text>
+class PlaceDetailScreen extends Component {
+  placeDeletedHandler = () => {
+    this.props.onDeletePlace(this.props.selectedPlace.id);
+    this.props.navigator.pop();
+  };
+
+  render() {
+    const {selectedPlace} = this.props;
+
+    return (
+      <View style={styles.modalContainer}>
+        <View>
+          <Image source={selectedPlace.image} style={styles.placeImage}/>
+          <Text style={styles.placeName}>{selectedPlace.name}</Text>
+        </View>
+        <View>
+          <TouchableOpacity onPress={this.placeDeletedHandler}>
+            <View style={styles.deleteButton}>
+              <Icon name="delete" size={30} color="red"/>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View>
-        <TouchableOpacity onPress={onItemDeleted}>
-          <View style={styles.deleteButton}>
-            <Icon name="delete" size={30} color="red"/>
-          </View>
-        </TouchableOpacity>
-        <Button title="Close" onPress={onModalClosed}/>
-      </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   modalContainer: {
@@ -41,4 +50,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default placeDetailScreen;
+const mapDispatchToProps = dispatch => {
+  return {
+    onDeletePlace: id => dispatch(deletePlace(id))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(PlaceDetailScreen);

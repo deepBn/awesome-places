@@ -7,8 +7,9 @@ export const addPlace = placeName => {
   }
 };
 
-export const deletePlace = () => {
+export const deletePlace = id => {
   return {
-    type: DELETE_PLACE
+    type: DELETE_PLACE,
+    placeId: id
   }
 };

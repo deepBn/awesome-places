@@ -8,7 +8,7 @@ const startTabs = () => {
     Icon.getImageSource('map-search', 30),
     Icon.getImageSource('share-outline', 30),
     Icon.getImageSource('share', 30),
-  ]).then(sources =>  {
+  ]).then(sources => {
     Navigation.startTabBasedApp({
       tabs: [
         {
