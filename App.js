@@ -5,11 +5,13 @@ import configureStore from './src/store/configureStore';
 import AuthScreen from './src/screens/Auth/Auth';
 import FindPlaceScreen from './src/screens/FindPlace/FindPlace';
 import SharePlaceScreen from './src/screens/SharePlace/SharePlace';
+import PlaceDetailScreen from './src/screens/PlaceDetail/PlaceDetail';
 
 //Register Screens
 Navigation.registerComponent('awesome-places.Authscreen', () => AuthScreen, configureStore, Provider);
 Navigation.registerComponent('awesome-places.FindPlaceScreen', () => FindPlaceScreen, configureStore, Provider);
 Navigation.registerComponent('awesome-places.SharePlaceScreen', () => SharePlaceScreen, configureStore, Provider);
+Navigation.registerComponent('awesome-places.PlaceDetailScreen', () => PlaceDetailScreen, configureStore, Provider);
 
 //Start an App
 Navigation.startSingleScreenApp({
