@@ -6,12 +6,14 @@ import AuthScreen from './src/screens/Auth/Auth';
 import FindPlaceScreen from './src/screens/FindPlace/FindPlace';
 import SharePlaceScreen from './src/screens/SharePlace/SharePlace';
 import PlaceDetailScreen from './src/screens/PlaceDetail/PlaceDetail';
+import SideDrawer from './src/screens/SideDrawer/SideDrawer';
 
 //Register Screens
 Navigation.registerComponent('awesome-places.Authscreen', () => AuthScreen, configureStore, Provider);
 Navigation.registerComponent('awesome-places.FindPlaceScreen', () => FindPlaceScreen, configureStore, Provider);
 Navigation.registerComponent('awesome-places.SharePlaceScreen', () => SharePlaceScreen, configureStore, Provider);
 Navigation.registerComponent('awesome-places.PlaceDetailScreen', () => PlaceDetailScreen, configureStore, Provider);
+Navigation.registerComponent('awesome-places.SideDrawer', () => SideDrawer, configureStore, Provider);
 
 //Start an App
 Navigation.startSingleScreenApp({

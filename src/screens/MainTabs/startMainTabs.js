@@ -8,6 +8,7 @@ const startTabs = () => {
     Icon.getImageSource('map-search', 30),
     Icon.getImageSource('share-outline', 30),
     Icon.getImageSource('share', 30),
+    Icon.getImageSource('menu', 30),
   ]).then(sources => {
     Navigation.startTabBasedApp({
       tabs: [
@@ -17,15 +18,38 @@ const startTabs = () => {
           icon: Platform.OS === 'android' ? sources[1] : sources[0], // local image asset for the tab icon unselected state (optional on iOS)
           selectedIcon: sources[1], // local image asset for the tab icon selected state (optional, iOS only. On Android, Use `tabBarSelectedButtonColor` instead)
           title: 'Find Place', // title of the screen as appears in the nav bar (optional)
+          navigatorButtons: {
+            leftButtons: [
+              {
+                icon: sources[4],
+                id: 'sideDrawerToggle',
+                title: 'Menu'
+              }
+            ]
+          },
         },
         {
           label: 'Share Place',
           screen: 'awesome-places.SharePlaceScreen',
           icon: Platform.OS === 'android' ? sources[3] : sources[2],
           selectedIcon: sources[3],
-          title: 'Share Place'
+          title: 'Share Place',
+          navigatorButtons: {
+            leftButtons: [
+              {
+                icon: sources[4],
+                id: 'sideDrawerToggle',
+                title: 'Menu'
+              }
+            ]
+          },
         }
-      ]
+      ],
+      drawer: { // optional, add this if you want a side menu drawer in your app
+        left: { // optional, define if you want a drawer from the left
+          screen: 'awesome-places.SideDrawer'
+        }
+      },
     });
   })
 };
