@@ -3,7 +3,7 @@ import {StyleSheet, TextInput} from 'react-native';
 
 const defaultInput = props => {
   return (
-    <TextInput style={styles.input} {...props}/>
+    <TextInput {...props} style={[styles.input, props.style]}/>
   )
 };
 
