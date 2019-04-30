@@ -22,7 +22,8 @@ class AuthScreen extends Component {
           </MainText>
           <ButtonWithBackground
             color="#29aaf4"
-            onPress={() => {}}
+            onPress={() => {
+            }}
           >
             Switch to Login
           </ButtonWithBackground>

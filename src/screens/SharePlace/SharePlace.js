@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet, ScrollView, Image} from 'react-native';
 import {connect} from 'react-redux';
 
-//import PlaceInput from '../../components/PlaceInput/PlaceInput';
+import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import {addPlace} from '../../store/actions';
-import DefaultInput from '../../components/UI/DefaultInput/DefaultInput';
 import MainText from '../../components/UI/MainText/MainText';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import imagePrview from '../../assets/beautiful-image.jpg';
@@ -25,9 +24,9 @@ class SharePlaceScreen extends Component {
     }
   };
 
-  placeAddedHandler = placeName => {
+  /*placeAddedHandler = placeName => {
     this.props.onAddPlace(placeName);
-  };
+  };*/
 
   render() {
     return (
@@ -50,12 +49,11 @@ class SharePlaceScreen extends Component {
             <Button title="Locate Me" onPress={() => {
             }}/>
           </View>
-          <DefaultInput placeholder="Place name"/>
+          <PlaceInput placeholder="Place name"/>
           <View style={styles.button}>
             <Button title="Share the Place!" onPress={() => {
             }}/>
           </View>
-          <DefaultInput onPlaceAdded={this.placeAddedHandler}/>
         </View>
       </ScrollView>
     );
