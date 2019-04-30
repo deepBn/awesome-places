@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {View, Text, Button, StyleSheet, ScrollView, Image} from 'react-native';
+import {View, Button, StyleSheet, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 
 import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import {addPlace} from '../../store/actions';
 import MainText from '../../components/UI/MainText/MainText';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
-import imagePrview from '../../assets/beautiful-image.jpg';
+import PickLocation from '../../components/PickLocation/PickLocation';
+import PickImage from '../../components/PickImage/PickImage';
 
 class SharePlaceScreen extends Component {
   constructor(props) {
@@ -35,24 +36,11 @@ class SharePlaceScreen extends Component {
           <MainText>
             <HeadingText>Share a place with us!</HeadingText>
           </MainText>
-          <View style={styles.placeholder}>
-            <Image source={imagePrview} style={styles.imagePreview}/>
-          </View>
-          <View style={styles.button}>
-            <Button title="Pick Image" onPress={() => {
-            }}/>
-          </View>
-          <View style={styles.placeholder}>
-            <Text>Map</Text>
-          </View>
-          <View style={styles.button}>
-            <Button title="Locate Me" onPress={() => {
-            }}/>
-          </View>
+          <PickImage/>
+          <PickLocation/>
           <PlaceInput placeholder="Place name"/>
           <View style={styles.button}>
-            <Button title="Share the Place!" onPress={() => {
-            }}/>
+            <Button title="Share the Place!" onPress={() => undefined}/>
           </View>
         </View>
       </ScrollView>
@@ -65,19 +53,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center'
   },
-  placeholder: {
-    borderWidth: 1,
-    borderColor: 'black',
-    backgroundColor: '#eee',
-    width: '80%',
-    height: 150
-  },
   button: {
     margin: 8
-  },
-  imagePreview: {
-    width: '100%',
-    height: '100%'
   }
 });
 
