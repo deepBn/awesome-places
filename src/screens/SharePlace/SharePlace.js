@@ -13,6 +13,9 @@ class SharePlaceScreen extends Component {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
+    this.state = {
+      placeName: ''
+    }
   }
 
   onNavigatorEvent = event => {
@@ -25,9 +28,16 @@ class SharePlaceScreen extends Component {
     }
   };
 
-  /*placeAddedHandler = placeName => {
-    this.props.onAddPlace(placeName);
-  };*/
+  placeNameChangedHandler = val => {
+    this.setState({placeName: val})
+  };
+
+  placeAddedHandler = () => {
+    const {placeName} = this.state;
+    if (placeName.trim() !== '') {
+      this.props.onAddPlace(placeName);
+    }
+  };
 
   render() {
     return (
@@ -38,9 +48,12 @@ class SharePlaceScreen extends Component {
           </MainText>
           <PickImage/>
           <PickLocation/>
-          <PlaceInput placeholder="Place name"/>
+          <PlaceInput
+            onChangeText={this.placeNameChangedHandler}
+            placeName={this.state.placeName}
+          />
           <View style={styles.button}>
-            <Button title="Share the Place!" onPress={() => undefined}/>
+            <Button title="Share the Place!" onPress={this.placeAddedHandler}/>
           </View>
         </View>
       </ScrollView>
