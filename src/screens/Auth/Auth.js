@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, ImageBackground} from 'react-native';
+import {View, StyleSheet, ImageBackground, Dimensions} from 'react-native';
 
 import startMainTabs from '../../screens/MainTabs/startMainTabs';
 import DefaultInput from '../../components/UI/DefaultInput/DefaultInput';
@@ -14,12 +14,20 @@ class AuthScreen extends Component {
   };
 
   render() {
+    let headingText = null;
+
+    if (Dimensions.get('window').height > 500) {
+      headingText = (
+        <MainText>
+          <HeadingText>Please Log In</HeadingText>
+        </MainText>
+      );
+    }
+
     return (
       <ImageBackground style={styles.imageBackground} source={backgroundImage}>
         <View style={styles.container}>
-          <MainText>
-            <HeadingText>Please Log In</HeadingText>
-          </MainText>
+          {headingText}
           <ButtonWithBackground
             color="#29aaf4"
             onPress={() => {
@@ -29,8 +37,14 @@ class AuthScreen extends Component {
           </ButtonWithBackground>
           <View style={styles.inputContainer}>
             <DefaultInput placeholder="Your E-Mail Address" style={styles.input}/>
-            <DefaultInput placeholder="Password" style={styles.input}/>
-            <DefaultInput placeholder="Confirm Password" style={styles.input}/>
+            <View style={styles.passwordField}>
+              <View style={styles.passwordBox}>
+                <DefaultInput placeholder="Password" style={styles.input}/>
+              </View>
+              <View style={styles.passwordBox}>
+                <DefaultInput placeholder="Confirm Password" style={styles.input}/>
+              </View>
+            </View>
           </View>
           <ButtonWithBackground
             color="#29aaf4"
@@ -59,6 +73,13 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#eee',
     borderColor: '#bbb'
+  },
+  passwordField: {
+    flexDirection: Dimensions.get('window').height > 500 ? 'column' : 'row',
+    justifyContent: 'space-between'
+  },
+  passwordBox: {
+    width: Dimensions.get('window').height > 500 ? '100%' : '45%'
   }
 });
 
