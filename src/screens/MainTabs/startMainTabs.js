@@ -45,10 +45,16 @@ const startTabs = () => {
           },
         }
       ],
+      tabStyle: {
+        tabBarSelectedButtonColor: 'orange'
+      },
       drawer: { // optional, add this if you want a side menu drawer in your app
         left: { // optional, define if you want a drawer from the left
           screen: 'awesome-places.SideDrawer'
         }
+      },
+      appStyle: {
+        tabBarSelectedButtonColor: 'orange'
       },
     });
   })
