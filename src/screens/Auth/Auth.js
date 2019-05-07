@@ -9,6 +9,27 @@ import ButtonWithBackground from '../../components/UI/ButtonWithBackground/Butto
 import backgroundImage from '../../assets/background.jpg';
 
 class AuthScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      respStyles: {
+        pwContainerDirection: 'column',
+        pwContainerSpacing: 'space-between',
+        pwWrapperWidth: '100%',
+      }
+    };
+    Dimensions.addEventListener('change', dims => {
+      const height = dims.window.height;
+      this.setState({
+        respStyles: {
+          pwContainerDirection: height > 500 ? 'column' : 'row',
+          pwContainerSpacing: 'space-between',
+          pwWrapperWidth: height > 500 ? '100%' : '45%',
+        }
+      })
+    })
+  }
+
   loginHandler = () => {
     startMainTabs();
   };
@@ -37,11 +58,20 @@ class AuthScreen extends Component {
           </ButtonWithBackground>
           <View style={styles.inputContainer}>
             <DefaultInput placeholder="Your E-Mail Address" style={styles.input}/>
-            <View style={styles.passwordField}>
-              <View style={styles.passwordBox}>
+            <View
+              style={{
+                flexDirection: this.state.respStyles.pwContainerDirection,
+                justifyContent: this.state.respStyles.pwContainerSpacing
+              }}
+            >
+              <View
+                style={{width: this.state.respStyles.pwWrapperWidth}}
+              >
                 <DefaultInput placeholder="Password" style={styles.input}/>
               </View>
-              <View style={styles.passwordBox}>
+              <View
+                style={{width: this.state.respStyles.pwWrapperWidth}}
+              >
                 <DefaultInput placeholder="Confirm Password" style={styles.input}/>
               </View>
             </View>
@@ -74,13 +104,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#eee',
     borderColor: '#bbb'
   },
-  passwordField: {
+  /*passwordContainer: {
     flexDirection: Dimensions.get('window').height > 500 ? 'column' : 'row',
     justifyContent: 'space-between'
   },
-  passwordBox: {
+  passwordWrapper: {
     width: Dimensions.get('window').height > 500 ? '100%' : '45%'
-  }
+  }*/
 });
 
 export default AuthScreen;
