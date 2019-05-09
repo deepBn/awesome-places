@@ -15,6 +15,7 @@ class AuthScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      authMode: 'login',
       mode: Dimensions.get('window').height > 500 ? 'portrait' : 'landscape',
       controls: {
         email: {
@@ -50,10 +51,17 @@ class AuthScreen extends Component {
     Dimensions.removeEventListener('change', this.dimensionChange)
   }
 
-
   dimensionChange = dims => {
     const height = dims.window.height;
     this.setState({mode: height > 500 ? 'portrait' : 'landscape'})
+  };
+
+  switchAuthModeHandler = () => {
+    this.setState(prevState => {
+      return {
+        authMode: prevState.authMode === 'login' ? 'signup' : 'login'
+      }
+    })
   };
 
   loginHandler = () => {
@@ -114,13 +122,35 @@ class AuthScreen extends Component {
 
   render() {
     let headingText = null;
-    const {mode} = this.state;
+    let confirmPassword = null;
+    const {mode, authMode} = this.state;
 
     if (mode === 'portrait') {
       headingText = (
         <MainText>
-          <HeadingText>Please Log In</HeadingText>
+          <HeadingText>Please {authMode === 'login' ? 'Login' : 'Sign Up' }</HeadingText>
         </MainText>
+      );
+    }
+
+    if (this.state.authMode === 'signup') {
+      confirmPassword = (
+        <View
+          style={
+            mode === 'landscape' && authMode === 'signup'
+              ? styles.landscapePasswordWrapper
+              : styles.portraitPasswordWrapper
+          }
+        >
+          <DefaultInput
+            placeholder="Confirm Password"
+            style={styles.input}
+            value={this.state.controls.confirmPassword.value}
+            onChangeText={val => this.updateInputState("confirmPassword", val)}
+            valid={this.state.controls.confirmPassword.valid}
+            touched={this.state.controls.confirmPassword.touched}
+          />
+        </View>
       );
     }
 
@@ -128,8 +158,8 @@ class AuthScreen extends Component {
       <ImageBackground style={styles.imageBackground} source={backgroundImage}>
         <View style={styles.container}>
           {headingText}
-          <ButtonWithBackground color="#29aaf4" onPress={() => alert("Hello")}>
-            Switch to Login
+          <ButtonWithBackground color="#29aaf4" onPress={this.switchAuthModeHandler}>
+            Switch to {authMode === 'login' ? 'Sign Up' : 'Login' }
           </ButtonWithBackground>
           <View style={styles.inputContainer}>
             <DefaultInput
@@ -149,9 +179,9 @@ class AuthScreen extends Component {
             >
               <View
                 style={
-                  mode === 'portrait'
-                    ? styles.portraitPasswordWrapper
-                    : styles.landscapePasswordWrapper
+                  mode === 'landscape' && authMode === 'signup'
+                    ? styles.landscapePasswordWrapper
+                    : styles.portraitPasswordWrapper
                 }
               >
                 <DefaultInput
@@ -163,22 +193,7 @@ class AuthScreen extends Component {
                   touched={this.state.controls.password.touched}
                 />
               </View>
-              <View
-                style={
-                  mode === 'portrait'
-                    ? styles.portraitPasswordWrapper
-                    : styles.landscapePasswordWrapper
-                }
-              >
-                <DefaultInput
-                  placeholder="Confirm Password"
-                  style={styles.input}
-                  value={this.state.controls.confirmPassword.value}
-                  onChangeText={val => this.updateInputState("confirmPassword", val)}
-                  valid={this.state.controls.confirmPassword.valid}
-                  touched={this.state.controls.confirmPassword.touched}
-                />
-              </View>
+              {confirmPassword}
             </View>
           </View>
           <ButtonWithBackground
@@ -187,10 +202,10 @@ class AuthScreen extends Component {
             disabled={
               !this.state.controls.email.valid ||
               !this.state.controls.password.valid ||
-              !this.state.controls.confirmPassword.valid
+              (!this.state.controls.confirmPassword.valid && this.state.authMode === 'signup')
             }
           >
-            Login
+            Submit
           </ButtonWithBackground>
         </View>
       </ImageBackground>
