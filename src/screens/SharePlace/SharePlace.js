@@ -27,6 +27,10 @@ class SharePlaceScreen extends Component {
           validationRules: {
             required: true
           }
+        },
+        location: {
+          value: null,
+          valid: false
         }
       }
     }
@@ -58,11 +62,24 @@ class SharePlaceScreen extends Component {
     });
   };
 
+  locationPickedHandler = location => {
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState.controls,
+          location: {
+            ...prevState.controls.location,
+            value: location,
+            valid: true
+          }
+        }
+      }
+    })
+  };
+
   placeAddedHandler = () => {
-    const placeName = this.state.controls.placeName.value;
-    if (placeName.trim() !== '') {
-      this.props.onAddPlace(placeName);
-    }
+    const {placeName, location} = this.state.controls;
+    this.props.onAddPlace(placeName.value, location.value);
   };
 
   render() {
@@ -73,7 +90,7 @@ class SharePlaceScreen extends Component {
             <HeadingText>Share a place with us!</HeadingText>
           </MainText>
           <PickImage/>
-          <PickLocation/>
+          <PickLocation onLocationPicked={this.locationPickedHandler}/>
           <PlaceInput
             onChangeText={this.placeNameChangedHandler}
             placeData={this.state.controls.placeName}
@@ -82,7 +99,7 @@ class SharePlaceScreen extends Component {
             <Button
               title="Share the Place!"
               onPress={this.placeAddedHandler}
-              disabled={!this.state.controls.placeName.valid}
+              disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid}
             />
           </View>
         </View>
@@ -103,7 +120,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddPlace: placeName => dispatch(addPlace(placeName))
+    onAddPlace: (placeName, location) => dispatch(addPlace(placeName, location))
   }
 };
 
