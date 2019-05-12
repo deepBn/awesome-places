@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
         places: state.places.concat({
           id: (Math.random() + Math.random()).toString(),
           name: action.placeName,
-          image: {uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'},
+          image: action.image,
           location: action.location
         })
       };
